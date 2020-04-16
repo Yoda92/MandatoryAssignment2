@@ -28,8 +28,15 @@ namespace WebApplication.Controllers
             return View(await _dbContext.Reservations.Where(r=> r.Date == date).ToListAsync());
         }
 
+        
+        [HttpGet]
+        public async Task<IActionResult> CreateReservation()
+        {
+            return View();
+        }
+        
         [HttpPost]
-        public async Task<IActionResult> CreateReservation(Reservation reservation)
+        public async Task<IActionResult> CreateReservation([Bind("Date,RoomNumber,NumberOfAdults,NumberOfChildren")]Reservation reservation)
         {
             if (ModelState.IsValid)
             {
@@ -37,8 +44,7 @@ namespace WebApplication.Controllers
                 await _dbContext.SaveChangesAsync();
                 return RedirectToAction(nameof(Index), "Reception");
             }
-            
-            return View( );
+            return View(reservation);
         }
     }
 }

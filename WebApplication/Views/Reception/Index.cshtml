@@ -1,7 +1,8 @@
 @model IEnumerable<WebApplication.Models.Reservation>
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Reception";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!DOCTYPE html>
@@ -12,7 +13,47 @@
 </head>
 <body>
 <div>
-      
+    <h1>Reception</h1>
+    
+    <a asp-action="CreateReservation" class="btn">Create a reservation</a>
+    <h2>All reservations</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model=>model.RoomNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.NumberOfAdults)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model=>model.NumberOfChildren)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+                {
+                    <tr>
+                        <th>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </th>
+                        <th>
+                            @Html.DisplayFor(modelItem=>item.RoomNumber)
+                        </th>
+                        <th>
+                            @Html.DisplayFor(modelItem => item.NumberOfAdults)
+                        </th>
+                        <th>
+                            @Html.DisplayFor(modelItem=>item.NumberOfChildren)
+                        </th>
+                    </tr>
+                }
+        </tbody>
+    </table>
 </div>
 </body>
 </html>
