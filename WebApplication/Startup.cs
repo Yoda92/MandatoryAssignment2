@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IdentityModel;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -40,6 +41,13 @@ namespace WebApplication
 
             services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, AdditionalUserClaimsPrincipalFactory>();
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("WaitersOnly", policy => policy.RequireClaim(JwtClaimTypes.Role, "waiter"));
+                options.AddPolicy("ReceptionistsOnly",
+                    policy => policy.RequireClaim(JwtClaimTypes.Role, "receptionist"));
+            });
+            
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
