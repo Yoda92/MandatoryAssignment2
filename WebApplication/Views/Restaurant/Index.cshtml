@@ -4,9 +4,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@if (ViewBag.Message != null)
+{
+    <script>
+        alert('@ViewBag.Message');
+    </script>
+}
+
 <h1 class="display-4">Check-In Guest</h1>
 <form method="post" enctype="multipart/form-data" asp-controller="Restaurant" asp-action="Index">
-    <div class="form-group" >
+
+    <div class="form-group">
         <label for="inputRoomNumber">Room Number</label>
         <input type="text" class="form-control" id="inputRoomNumber">
     </div>
@@ -22,6 +30,7 @@
     </div>
 
     <button type="submit" class="btn btn-primary">Check-In!</button>
+
 </form>
 
 
