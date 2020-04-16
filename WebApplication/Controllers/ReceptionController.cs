@@ -29,14 +29,14 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SaveReservation(Reservation reservation)
+        public async Task<IActionResult> CreateReservation(Reservation reservation)
         {
-            if (ModelState.IsValid)
-            {
-                _dbContext.Reservations.Add(reservation);
-                await _dbContext.SaveChangesAsync();
-                return RedirectToAction(nameof(SaveConfirmation), "Reception",reservation.);
-            }
+            //if (ModelState.IsValid)
+            //{
+            //    _dbContext.Reservations.Add(reservation);
+            //    await _dbContext.SaveChangesAsync();
+            //    return RedirectToAction(nameof(SaveConfirmation), "Reception",reservation.);
+            //}
             
             return View( );
         }
