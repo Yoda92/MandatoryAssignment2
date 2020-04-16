@@ -1,43 +1,46 @@
-﻿@{
+﻿@model WebApplication.DTOs.AccumulatedReservations
+
+@{
     ViewData["Title"] = "Kitchen";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Køkken</h1>
+<h1>Kitchen</h1>
 <table>
     <tr>
-        <th>Antal gæster:   </th>
+        <th>Expected guests</th>
         <td>
-            1
+            @Html.DisplayFor(model => model.ExpectedGuest)
         </td>
     </tr>
     <tr>
-        <th>Voksne checket ind:   </th>
+        <th>Amount of adults checked in</th>
         <td>
-            2
+            @Html.DisplayFor(model => model.CheckedInAdults)
         </td>
     </tr>
     <tr>
-        <th>Børn checket ind:   </th>
+        <th>Amount of children checked in</th>
         <td>
-            3
+            @Html.DisplayFor(model => model.CheckedInChildren)
         </td>
     </tr>
     <tr>
-        <th>Gæster ikke checket ind:   </th>
+        <th>Amount of guest not yet checked in</th>
         <td>
-            4
+            @Html.DisplayFor(model => model.NotCheckedInGuests)
         </td>
     </tr>
     <tr>
-        <th>Voksne ikke checket ind:   </th>
+        <th>Amount of adults not yet checked in</th>
         <td>
-            5
+            @Html.DisplayFor(model => model.NotCheckedInAdults)
         </td>
     </tr>
     <tr>
-        <th>Børn ikke checket ind:   </th>
+        <th>Amount of children not yet checked in</th>
         <td>
-            6
+            @Html.DisplayFor(model => model.NotCheckedInChildren)
         </td>
     </tr>
 </table>
