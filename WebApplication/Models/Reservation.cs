@@ -14,5 +14,7 @@ namespace WebApplication.Models
         public uint NumberOfAdults { get; set; }
         [Required]
         public uint NumberOfChildren { get; set; }
+
+        public bool IsCheckedIn { get; set; }
     }
 }
