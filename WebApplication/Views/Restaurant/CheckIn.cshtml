@@ -1,0 +1,31 @@
+﻿@model WebApplication.Models.Reservation
+
+@{
+    ViewData["Title"] = "CheckIn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <h1 class="display-4">Restaurant / Check-In Guest</h1>
+<form method="post" enctype="multipart/form-data" asp-controller="Restaurant" asp-action="AddCheckIn">
+
+    <div class="form-group">
+        <label asp-for="RoomNumber">Room Number</label>
+        <input type="number" class="form-control" asp-for="RoomNumber" />
+        <span asp-validation-for="RoomNumber" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NumberOfAdultsCheckedIn">Number of Adults</label>
+        <input type="number" class="form-control" asp-for="NumberOfAdultsCheckedIn">
+        <span asp-validation-for="NumberOfAdultsCheckedIn" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="NumberOfChildrenCheckedIn">Number Of Children</label>
+        <input type="number" class="form-control" asp-for="NumberOfChildrenCheckedIn">
+        <span asp-validation-for="NumberOfChildrenCheckedIn" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Check-In!</button>
+
+</form>

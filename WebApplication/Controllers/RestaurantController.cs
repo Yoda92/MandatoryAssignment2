@@ -16,28 +16,30 @@ namespace WebApplication.Controllers
         {
             _dbContext = dbContext;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
+        {
+            return View(await _dbContext.Reservations.Where(r => r.Date.Date == DateTime.Now.Date 
+                                                                 && r.Date.Month == DateTime.Now.Month
+                                                                 && r.Date.Year == DateTime.Now.Year).ToListAsync());
+        }
+        public IActionResult CheckIn()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(uint inputRoomNumber, uint inputAdultNumber, uint inputChildrenNumber)
+        public async Task<IActionResult> AddCheckIn(int RoomNumber, int NumberOfAdultsCheckedIn, int NumberOfChildrenCheckedIn)
         {
-            Reservation thisReservation = _dbContext.Reservations.FirstOrDefault(r => r.RoomNumber == inputRoomNumber);
+            Reservation thisReservation = _dbContext.Reservations.FirstOrDefault(r => r.RoomNumber == RoomNumber);
             if (thisReservation != null)
             {
                 thisReservation.IsCheckedIn = true;
+                thisReservation.NumberOfAdultsCheckedIn = NumberOfAdultsCheckedIn;
+                thisReservation.NumberOfChildrenCheckedIn = NumberOfChildrenCheckedIn;
                 _dbContext.Reservations.Update(thisReservation);
                 await _dbContext.SaveChangesAsync();
-                ViewBag.Message = "Room Number has been checked in.";
-                return View();
             }
-            else
-            {
-                ViewBag.Message = "Error! Room number does not exist!";
-                return View();
-            }
+            return RedirectToAction(nameof(Index), "Restaurant");
         }
     }
 }
