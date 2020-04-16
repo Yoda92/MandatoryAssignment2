@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication.Data;
+using WebApplication.Models;
 
 namespace WebApplication.Controllers
 {
@@ -21,9 +22,22 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(string inputRoomNumber, string inputAdultNumber, string inputChildrenNumber)
+        public async Task<IActionResult> Index(uint inputRoomNumber, uint inputAdultNumber, uint inputChildrenNumber)
         {
-            return Ok();
+            Reservation thisReservation = _dbContext.Reservations.FirstOrDefault(r => r.RoomNumber == inputRoomNumber);
+            if (thisReservation != null)
+            {
+                thisReservation.IsCheckedIn = true;
+                _dbContext.Reservations.Update(thisReservation);
+                await _dbContext.SaveChangesAsync();
+                ViewBag.Message = "Room Number has been checked in.";
+                return View();
+            }
+            else
+            {
+                ViewBag.Message = "Error! Room number does not exist!";
+                return View();
+            }
         }
     }
 }
