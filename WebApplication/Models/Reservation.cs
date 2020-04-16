@@ -9,12 +9,13 @@ namespace WebApplication.Models
         [Required]
         public DateTime Date { get; set; }
         [Required]
-        public uint RoomNumber { get; set; }
+        public int RoomNumber { get; set; }
         [Required]
-        public uint NumberOfAdults { get; set; }
+        public int NumberOfAdults { get; set; }
         [Required]
-        public uint NumberOfChildren { get; set; }
-
+        public int NumberOfChildren { get; set; }
+        public int NumberOfAdultsCheckedIn { get; set; }
+        public int NumberOfChildrenCheckedIn { get; set; }
         public bool IsCheckedIn { get; set; }
     }
 }
