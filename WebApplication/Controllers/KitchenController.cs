@@ -22,7 +22,7 @@ namespace WebApplication.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            AccumulatedReservations accReservation = _dbContext.Reservations.ToList().Aggregate(new AccumulatedReservations(), (acc, r) =>
+            AccumulatedReservations accReservation = _dbContext.Reservations.Where(r => r.Date == DateTime.Today).ToList().Aggregate(new AccumulatedReservations(), (acc, r) =>
                 {
                     acc.ExpectedGuest += r.NumberOfAdults + r.NumberOfChildren;
                     acc.CheckedInAdults += r.NumberOfAdultsCheckedIn;
