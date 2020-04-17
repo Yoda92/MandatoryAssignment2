@@ -1,30 +1,36 @@
-﻿@model WebApplication.Models.Reservation
-
-@{
+﻿@{
     ViewData["Title"] = "CheckIn";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <h1 class="display-4">Restaurant / Check-In Guest</h1>
+@{ int maxAdult = Model.NumberOfAdults - Model.NumberOfAdultsCheckedIn;}
+@{ int maxChildren = Model.NumberOfChildren - Model.NumberOfChildrenCheckedIn;}
+
+<h1 class="display-4">Restaurant / Check-In Guest</h1>
+
+<hr>
+
+<p><b>Room Number:</b> @Model.RoomNumber</p>
+<p><b>Adults:</b> @Model.NumberOfAdults</p>
+<p><b>Children:</b> @Model.NumberOfChildren</p>
+<p><b>Adults Checked In:</b> @Model.NumberOfAdultsCheckedIn</p>
+<p><b>Children Checked In:</b> @Model.NumberOfChildrenCheckedIn</p>
+
+<hr>
+
 <form method="post" enctype="multipart/form-data" asp-controller="Restaurant" asp-action="AddCheckIn">
 
     <div class="form-group">
-        <label asp-for="RoomNumber">Room Number</label>
-        <input type="number" class="form-control" asp-for="RoomNumber" />
-        <span asp-validation-for="RoomNumber" class="text-danger"></span>
+        <label for="numberOfAdultsCheckedIn"><b>Number of Adults To Check-In</b></label>
+        <input max="@maxAdult" type="number" class="form-control" id="numberOfAdultsCheckedIn" name="numberOfAdultsCheckedIn">
     </div>
 
     <div class="form-group">
-        <label asp-for="NumberOfAdultsCheckedIn">Number of Adults</label>
-        <input type="number" class="form-control" asp-for="NumberOfAdultsCheckedIn">
-        <span asp-validation-for="NumberOfAdultsCheckedIn" class="text-danger"></span>
+        <label for="numberOfChildrenCheckedIn"><b>Number Of Children To Check-In</b></label>
+        <input max="@maxChildren" type="number" class="form-control" id="numberOfChildrenCheckedIn" name="numberOfChildrenCheckedIn">
     </div>
 
-    <div class="form-group">
-        <label asp-for="NumberOfChildrenCheckedIn">Number Of Children</label>
-        <input type="number" class="form-control" asp-for="NumberOfChildrenCheckedIn">
-        <span asp-validation-for="NumberOfChildrenCheckedIn" class="text-danger"></span>
-    </div>
+    <input type="hidden" id="id" name="id" value="@Model.Id" />
 
     <button type="submit" class="btn btn-primary">Check-In!</button>
 

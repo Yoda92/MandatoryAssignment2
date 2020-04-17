@@ -22,20 +22,19 @@ namespace WebApplication.Controllers
                                                                  && r.Date.Month == DateTime.Now.Month
                                                                  && r.Date.Year == DateTime.Now.Year).ToListAsync());
         }
-        public IActionResult CheckIn()
+        public IActionResult CheckIn(int Id)
         {
-            return View();
+            return View(_dbContext.Reservations.FirstOrDefault(r => r.Id == Id));
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddCheckIn(int RoomNumber, int NumberOfAdultsCheckedIn, int NumberOfChildrenCheckedIn)
+        public async Task<IActionResult> AddCheckIn(int Id, int numberOfAdultsCheckedIn, int numberOfChildrenCheckedIn)
         {
-            Reservation thisReservation = _dbContext.Reservations.FirstOrDefault(r => r.RoomNumber == RoomNumber);
+            Reservation thisReservation = _dbContext.Reservations.FirstOrDefault(r => r.Id == Id);
             if (thisReservation != null)
             {
-                thisReservation.IsCheckedIn = true;
-                thisReservation.NumberOfAdultsCheckedIn = NumberOfAdultsCheckedIn;
-                thisReservation.NumberOfChildrenCheckedIn = NumberOfChildrenCheckedIn;
+                if ((thisReservation.NumberOfAdults - thisReservation.NumberOfAdultsCheckedIn - numberOfAdultsCheckedIn ) >= 0) thisReservation.NumberOfAdultsCheckedIn += numberOfAdultsCheckedIn;
+                if ((thisReservation.NumberOfChildren - thisReservation.NumberOfChildrenCheckedIn - numberOfChildrenCheckedIn) >= 0) thisReservation.NumberOfChildrenCheckedIn += numberOfChildrenCheckedIn;
                 _dbContext.Reservations.Update(thisReservation);
                 await _dbContext.SaveChangesAsync();
             }
