@@ -11,7 +11,7 @@ using WebApplication.Models;
 
 namespace WebApplication.Controllers
 {
-    [Authorize(Policy = "waiter")]
+    [Authorize(Policy = "WaitersOnly")]
     public class RestaurantController : Controller
     {
         private readonly ApplicationDbContext _dbContext;
