@@ -14,10 +14,6 @@
         <thead>
             <tr>
                 <th scope="col">Room Number</th>
-                <th scope="col">Adults</th>
-                <th scope="col">Children</th>
-                <th scope="col">Adults Checked In</th>
-                <th scope="col">Children Checked In</th>
                 <th scope="col"></th>
             </tr>
         </thead>
@@ -29,19 +25,9 @@
                     @Html.DisplayFor(modelItem => item.RoomNumber)
                 </th>
                 <th>
-                    @Html.DisplayFor(modelItem => item.NumberOfAdults)
-                </th>
-                <th>
-                    @Html.DisplayFor(modelItem => item.NumberOfChildren)
-                </th>
-                <th>
-                    @Html.DisplayFor(modelItem => item.NumberOfAdultsCheckedIn)
-                </th>
-                <th>
-                    @Html.DisplayFor(modelItem => item.NumberOfChildrenCheckedIn)
-                </th>
-                <th>
-                    <a asp-action="CheckIn" asp-route-id="@item.Id" class="btn btn-primary">Check-In</a>
+                    <div class="float-right">
+                        <a asp-action="CheckIn" asp-route-id="@item.Id" class="btn btn-primary">Check-In</a>
+                    </div>
                 </th>
             </tr>
         }
