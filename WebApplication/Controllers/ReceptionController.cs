@@ -23,6 +23,34 @@ namespace WebApplication.Controllers
         }
         
         [HttpGet]
+        public async Task<IActionResult> Today()
+        {
+            return View("Index",await _dbContext.Reservations.Where(r=>r.Date.Date==DateTime.Today).ToListAsync());
+        }
+        
+        
+        [HttpGet]
+        public async Task<IActionResult> CheckedInToday()
+        {
+            
+            ViewBag.listOfReservations = await _dbContext.Reservations.Where(r=>r.NumberOfAdultsCheckedIn!=0 || r.NumberOfChildrenCheckedIn!=0).ToListAsync();
+            
+            
+            
+            ViewBag.totalCount = _dbContext.Reservations.Where(r => r.Date == DateTime.Today).ToList().Aggregate(new int(),
+                (number, reservation) =>
+                {
+                    number += reservation.NumberOfAdultsCheckedIn + reservation.NumberOfChildrenCheckedIn;
+                    return number;
+                }
+
+            );
+            
+            return View(ViewBag);
+        }
+        
+        
+        [HttpGet]
         public async Task<IActionResult> GetReservationsByDay(DateTime date)
         {
             return View(await _dbContext.Reservations.Where(r=> r.Date == date).ToListAsync());
@@ -34,9 +62,9 @@ namespace WebApplication.Controllers
         {
             return View();
         }
-        
+        //[Bind("Date,RoomNumber,NumberOfAdults,NumberOfChildren)]"
         [HttpPost]
-        public async Task<IActionResult> CreateReservation([Bind("Date,RoomNumber,NumberOfAdults,NumberOfChildren")]Reservation reservation)
+        public async Task<IActionResult> CreateReservation(Reservation reservation)
         {
             if (ModelState.IsValid)
             {

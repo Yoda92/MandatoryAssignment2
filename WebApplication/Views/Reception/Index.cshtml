@@ -14,9 +14,11 @@
 <body>
 <div>
     <h1>Reception</h1>
-    
+    <a asp-action="Index" class="btn btn-primary">View all reservations</a>
+    <a asp-action="Today" class="btn btn-primary">View todays reservations</a>
     <a asp-action="CreateReservation" class="btn btn-primary">Create a reservation</a>
-    <h2>All reservations</h2>
+    <a asp-action="CheckedInToday" class="btn btn-primary">See how many guests had breakfast today</a>
+    <h2>Reservations</h2>
     <table class="table">
         <thead>
             <tr>
