@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using IdentityModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication.Data;
@@ -8,6 +10,7 @@ using WebApplication.Models;
 
 namespace WebApplication.Controllers
 {
+    [Authorize(Policy = "ReceptionistsOnly")]
     public class ReceptionController : Controller
     {
         private readonly ApplicationDbContext _dbContext;
@@ -16,6 +19,7 @@ namespace WebApplication.Controllers
             _dbContext = dbContext;
         }
     
+
         [HttpGet]
         public async Task<IActionResult> Index()
         {
