@@ -5,45 +5,60 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Kitchen</h1>
-<table>
-    <tr>
-        <th>Expected guests</th>
-        <td>
-            @Html.DisplayFor(model => model.ExpectedGuest)
-        </td>
-    </tr>
-    <tr>
-        <th>Amount of adults checked in</th>
-        <td>
-            @Html.DisplayFor(model => model.CheckedInAdults)
-        </td>
-    </tr>
-    <tr>
-        <th>Amount of children checked in</th>
-        <td>
-            @Html.DisplayFor(model => model.CheckedInChildren)
-        </td>
-    </tr>
-    <tr>
-        <th>Amount of guest not yet checked in</th>
-        <td>
-            @Html.DisplayFor(model => model.NotCheckedInGuests)
-        </td>
-    </tr>
-    <tr>
-        <th>Amount of adults not yet checked in</th>
-        <td>
-            @Html.DisplayFor(model => model.NotCheckedInAdults)
-        </td>
-    </tr>
-    <tr>
-        <th>Amount of children not yet checked in</th>
-        <td>
-            @Html.DisplayFor(model => model.NotCheckedInChildren)
-        </td>
-    </tr>
-</table>
-
-
-
+<div style="width: 100%; display: flex; align-content:center; flex-direction: column; align-items:center">
+    <h1>Kitchen</h1>
+    <div style="max-width: 600px; width:100%">
+        <table style="width: 100%">
+            <thead>
+                <tr>
+                    <th>Type:</th>
+                    <th>Antal:</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Expected guests</td>
+                <td>
+                    @Html.DisplayFor(model => model.ExpectedGuest)
+                </td>
+            </tr>
+            <tr>
+                <td>Amount of adults checked in</td>
+                <td>
+                    @Html.DisplayFor(model => model.CheckedInAdults)
+                </td>
+            </tr>
+            <tr>
+                <td>Amount of children checked in</td>
+                <th>
+                    @Html.DisplayFor(model => model.CheckedInChildren)
+                </td>
+            </tr>
+            <tr>
+                <td>Amount of guest not yet checked in</td>
+                <td>
+                    @Html.DisplayFor(model => model.NotCheckedInGuests)
+                </td>
+            </tr>
+            <tr>
+                <td>Amount of adults not yet checked in</td>
+                <td>
+                    @Html.DisplayFor(model => model.NotCheckedInAdults)
+                </td>
+            </tr>
+            <tr>
+                <td>Amount of children not yet checked in</td>
+                <td>
+                    @Html.DisplayFor(model => model.NotCheckedInChildren)
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <br>
+        <div style="display:flex; align-content: flex-end; justify-content: flex-end">
+            <a asp-controller="Kitchen" asp-action="Index">
+                <button class="btn btn-lg btn-secondary" >Refresh</button>
+            </a>
+        </div>
+    </div>
+</div>
