@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IdentityModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication.Data;
@@ -18,18 +19,21 @@ namespace WebApplication.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            if (!this.User.HasClaim(JwtClaimTypes.Role, "waiter")) return RedirectToAction(nameof(Index), "Home");
             return View(await _dbContext.Reservations.Where(r => r.Date.Date == DateTime.Now.Date 
                                                                  && r.Date.Month == DateTime.Now.Month
                                                                  && r.Date.Year == DateTime.Now.Year).ToListAsync());
         }
         public IActionResult CheckIn(int Id)
         {
+            if (!this.User.HasClaim(JwtClaimTypes.Role, "waiter")) return RedirectToAction(nameof(Index), "Home");
             return View(_dbContext.Reservations.FirstOrDefault(r => r.Id == Id));
         }
 
         [HttpPost]
         public async Task<IActionResult> AddCheckIn(int Id, int numberOfAdultsCheckedIn, int numberOfChildrenCheckedIn)
         {
+            if(!this.User.HasClaim(JwtClaimTypes.Role, "waiter")) return RedirectToAction(nameof(Index), "Home");
             Reservation thisReservation = _dbContext.Reservations.FirstOrDefault(r => r.Id == Id);
             if (thisReservation != null)
             {
