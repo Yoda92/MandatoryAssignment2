@@ -1,0 +1,58 @@
+
+@{
+    ViewData["Title"] = "Reception";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>title</title>
+</head>
+<body>
+<div>
+    <h1>Reception</h1>
+    <a asp-action="Index" class="btn btn-primary">View all reservations</a>
+    <a asp-action="Today" class="btn btn-primary">View todays reservations</a>
+    <a asp-action="CreateReservation" class="btn btn-primary">Create a reservation</a>
+    <a asp-action="CheckedInToday" class="btn btn-primary">See how many guests had breakfast today</a>
+    <h2>Guests who ate today</h2>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>
+                Room number
+            </th>
+            <th>
+                Number of adults checked in
+            </th>
+            <th>
+                Number of children checked in
+            </th>
+                
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in ViewBag.listOfReservations)
+        {
+            <tr>
+                <th>
+                    @item.RoomNumber
+                </th>
+                <th>
+                    @item.NumberOfAdultsCheckedIn
+                </th>
+                <th>
+                    @item.NumberOfChildrenCheckedIn
+                </th>
+                        
+            </tr>
+        }
+        </tbody>
+        
+    </table>
+    Total number of dining guests today: @Model.totalCount
+</div>
+</body>
+</html>
