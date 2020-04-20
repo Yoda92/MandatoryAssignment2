@@ -14,6 +14,5 @@ After this is done you must run `dotnet ef database update` from your terminal/c
 
 The `StudentHelperContext` should seed the database with some dummy data.
 
-
-## Using the Application
-When running the application you will be greeted by a prompt showing possible actions to take.
+## Info on security
+The controllers will only allow certain users to access them, which means it will result in a HTTP-error if you do not have the right claims. To avoid bad UX the Nav-bar is filtered to only show the possible controllers you can access. Theres 2 claims: IsWaiter and IsReceptionist. These can be enabled on a user when creating the user.
