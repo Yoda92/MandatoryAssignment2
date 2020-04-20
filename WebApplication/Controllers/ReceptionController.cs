@@ -18,29 +18,29 @@ namespace WebApplication.Controllers
         {
             _dbContext = dbContext;
         }
-    
+
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
             return View(await _dbContext.Reservations.ToListAsync());
         }
-        
+
         [HttpGet]
         public async Task<IActionResult> Today()
         {
-            return View("Index",await _dbContext.Reservations.Where(r=>r.Date.Date==DateTime.Today).ToListAsync());
+            return View("Index", await _dbContext.Reservations.Where(r => r.Date.Date == DateTime.Today).ToListAsync());
         }
-        
-        
+
+
         [HttpGet]
         public async Task<IActionResult> CheckedInToday()
         {
-            
-            ViewBag.listOfReservations = await _dbContext.Reservations.Where(r=>r.NumberOfAdultsCheckedIn!=0 || r.NumberOfChildrenCheckedIn!=0).ToListAsync();
-            
-            
-            
+
+            ViewBag.listOfReservations = await _dbContext.Reservations.Where(r => r.NumberOfAdultsCheckedIn != 0 || r.NumberOfChildrenCheckedIn != 0).ToListAsync();
+
+
+
             ViewBag.totalCount = _dbContext.Reservations.Where(r => r.Date == DateTime.Today).ToList().Aggregate(new int(),
                 (number, reservation) =>
                 {
@@ -49,23 +49,18 @@ namespace WebApplication.Controllers
                 }
 
             );
-            
+
             return View(ViewBag);
         }
-        
-        
+
+
         [HttpGet]
         public async Task<IActionResult> GetReservationsByDay(DateTime date)
         {
-            return View(await _dbContext.Reservations.Where(r=> r.Date == date).ToListAsync());
+            return View(await _dbContext.Reservations.Where(r => r.Date == date).ToListAsync());
         }
 
-        
-        [HttpGet]
-        public async Task<IActionResult> CreateReservation()
-        {
-            return View();
-        }
+
         //[Bind("Date,RoomNumber,NumberOfAdults,NumberOfChildren)]"
         [HttpPost]
         public async Task<IActionResult> CreateReservation(Reservation reservation)
