@@ -41,7 +41,7 @@
                 {
                     <tr>
                         <th>
-                            @Html.DisplayFor(modelItem => item.Date)
+                            @item.Date.ToShortDateString()
                         </th>
                         <th>
                             @Html.DisplayFor(modelItem=>item.RoomNumber)
